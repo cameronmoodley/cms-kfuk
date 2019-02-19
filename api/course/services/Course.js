@@ -1,8 +1,8 @@
-/* global Courseinformation */
+/* global Course */
 'use strict';
 
 /**
- * Courseinformation.js service
+ * Course.js service
  *
  * @description: A set of functions similar to controller's actions to avoid code duplication.
  */
@@ -16,20 +16,20 @@ const utils = require('strapi-hook-bookshelf/lib/utils/');
 module.exports = {
 
   /**
-   * Promise to fetch all courseinformations.
+   * Promise to fetch all courses.
    *
    * @return {Promise}
    */
 
   fetchAll: (params) => {
     // Convert `params` object to filters compatible with Bookshelf.
-    const filters = strapi.utils.models.convertParams('courseinformation', params);
+    const filters = strapi.utils.models.convertParams('course', params);
     // Select field to populate.
-    const populate = Courseinformation.associations
+    const populate = Course.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias);
 
-    return Courseinformation.query(function(qb) {
+    return Course.query(function(qb) {
       _.forEach(filters.where, (where, key) => {
         if (_.isArray(where.value) && where.symbol !== 'IN') {
           for (const value in where.value) {
@@ -52,33 +52,33 @@ module.exports = {
   },
 
   /**
-   * Promise to fetch a/an courseinformation.
+   * Promise to fetch a/an course.
    *
    * @return {Promise}
    */
 
   fetch: (params) => {
     // Select field to populate.
-    const populate = Courseinformation.associations
+    const populate = Course.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias);
 
-    return Courseinformation.forge(_.pick(params, 'id')).fetch({
+    return Course.forge(_.pick(params, 'id')).fetch({
       withRelated: populate
     });
   },
 
   /**
-   * Promise to count a/an courseinformation.
+   * Promise to count a/an course.
    *
    * @return {Promise}
    */
 
   count: (params) => {
     // Convert `params` object to filters compatible with Bookshelf.
-    const filters = strapi.utils.models.convertParams('courseinformation', params);
+    const filters = strapi.utils.models.convertParams('course', params);
 
-    return Courseinformation.query(function(qb) {
+    return Course.query(function(qb) {
       _.forEach(filters.where, (where, key) => {
         if (_.isArray(where.value)) {
           for (const value in where.value) {
@@ -92,50 +92,50 @@ module.exports = {
   },
 
   /**
-   * Promise to add a/an courseinformation.
+   * Promise to add a/an course.
    *
    * @return {Promise}
    */
 
   add: async (values) => {
     // Extract values related to relational data.
-    const relations = _.pick(values, Courseinformation.associations.map(ast => ast.alias));
-    const data = _.omit(values, Courseinformation.associations.map(ast => ast.alias));
+    const relations = _.pick(values, Course.associations.map(ast => ast.alias));
+    const data = _.omit(values, Course.associations.map(ast => ast.alias));
 
     // Create entry with no-relational data.
-    const entry = await Courseinformation.forge(data).save();
+    const entry = await Course.forge(data).save();
 
     // Create relational data and return the entry.
-    return Courseinformation.updateRelations({ id: entry.id , values: relations });
+    return Course.updateRelations({ id: entry.id , values: relations });
   },
 
   /**
-   * Promise to edit a/an courseinformation.
+   * Promise to edit a/an course.
    *
    * @return {Promise}
    */
 
   edit: async (params, values) => {
     // Extract values related to relational data.
-    const relations = _.pick(values, Courseinformation.associations.map(ast => ast.alias));
-    const data = _.omit(values, Courseinformation.associations.map(ast => ast.alias));
+    const relations = _.pick(values, Course.associations.map(ast => ast.alias));
+    const data = _.omit(values, Course.associations.map(ast => ast.alias));
 
     // Create entry with no-relational data.
-    const entry = Courseinformation.forge(params).save(data);
+    const entry = Course.forge(params).save(data);
 
     // Create relational data and return the entry.
-    return Courseinformation.updateRelations(Object.assign(params, { values: relations }));
+    return Course.updateRelations(Object.assign(params, { values: relations }));
   },
 
   /**
-   * Promise to remove a/an courseinformation.
+   * Promise to remove a/an course.
    *
    * @return {Promise}
    */
 
   remove: async (params) => {
     params.values = {};
-    Courseinformation.associations.map(association => {
+    Course.associations.map(association => {
       switch (association.nature) {
         case 'oneWay':
         case 'oneToOne':
@@ -152,45 +152,45 @@ module.exports = {
       }
     });
 
-    await Courseinformation.updateRelations(params);
+    await Course.updateRelations(params);
 
-    return Courseinformation.forge(params).destroy();
+    return Course.forge(params).destroy();
   },
 
   /**
-   * Promise to search a/an courseinformation.
+   * Promise to search a/an course.
    *
    * @return {Promise}
    */
 
   search: async (params) => {
     // Convert `params` object to filters compatible with Bookshelf.
-    const filters = strapi.utils.models.convertParams('courseinformation', params);
+    const filters = strapi.utils.models.convertParams('course', params);
     // Select field to populate.
-    const populate = Courseinformation.associations
+    const populate = Course.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias);
 
-    const associations = Courseinformation.associations.map(x => x.alias);
-    const searchText = Object.keys(Courseinformation._attributes)
-      .filter(attribute => attribute !== Courseinformation.primaryKey && !associations.includes(attribute))
-      .filter(attribute => ['string', 'text'].includes(Courseinformation._attributes[attribute].type));
+    const associations = Course.associations.map(x => x.alias);
+    const searchText = Object.keys(Course._attributes)
+      .filter(attribute => attribute !== Course.primaryKey && !associations.includes(attribute))
+      .filter(attribute => ['string', 'text'].includes(Course._attributes[attribute].type));
 
-    const searchNoText = Object.keys(Courseinformation._attributes)
-      .filter(attribute => attribute !== Courseinformation.primaryKey && !associations.includes(attribute))
-      .filter(attribute => !['string', 'text', 'boolean', 'integer', 'decimal', 'float'].includes(Courseinformation._attributes[attribute].type));
+    const searchNoText = Object.keys(Course._attributes)
+      .filter(attribute => attribute !== Course.primaryKey && !associations.includes(attribute))
+      .filter(attribute => !['string', 'text', 'boolean', 'integer', 'decimal', 'float'].includes(Course._attributes[attribute].type));
 
-    const searchInt = Object.keys(Courseinformation._attributes)
-      .filter(attribute => attribute !== Courseinformation.primaryKey && !associations.includes(attribute))
-      .filter(attribute => ['integer', 'decimal', 'float'].includes(Courseinformation._attributes[attribute].type));
+    const searchInt = Object.keys(Course._attributes)
+      .filter(attribute => attribute !== Course.primaryKey && !associations.includes(attribute))
+      .filter(attribute => ['integer', 'decimal', 'float'].includes(Course._attributes[attribute].type));
 
-    const searchBool = Object.keys(Courseinformation._attributes)
-      .filter(attribute => attribute !== Courseinformation.primaryKey && !associations.includes(attribute))
-      .filter(attribute => ['boolean'].includes(Courseinformation._attributes[attribute].type));
+    const searchBool = Object.keys(Course._attributes)
+      .filter(attribute => attribute !== Course.primaryKey && !associations.includes(attribute))
+      .filter(attribute => ['boolean'].includes(Course._attributes[attribute].type));
 
     const query = (params._q || '').replace(/[^a-zA-Z0-9.-\s]+/g, '');
 
-    return Courseinformation.query(qb => {
+    return Course.query(qb => {
       // Search in columns which are not text value.
       searchNoText.forEach(attribute => {
         qb.orWhereRaw(`LOWER(${attribute}) LIKE '%${_.toLower(query)}%'`);
@@ -209,7 +209,7 @@ module.exports = {
       }
 
       // Search in columns with text using index.
-      switch (Courseinformation.client) {
+      switch (Course.client) {
         case 'mysql':
           qb.orWhereRaw(`MATCH(${searchText.join(',')}) AGAINST(? IN BOOLEAN MODE)`, `*${query}*`);
           break;

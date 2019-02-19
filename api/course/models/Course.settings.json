@@ -1,0 +1,27 @@
+{
+  "connection": "default",
+  "collectionName": "courses",
+  "info": {
+    "name": "course",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {
+    "courseID": {
+      "default": "",
+      "type": "integer"
+    },
+    "name": {
+      "default": "",
+      "type": "string"
+    },
+    "description": {
+      "default": "",
+      "type": "string"
+    }
+  }
+}

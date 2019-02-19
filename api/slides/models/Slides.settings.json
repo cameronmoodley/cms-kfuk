@@ -1,0 +1,35 @@
+{
+  "connection": "default",
+  "collectionName": "slides",
+  "info": {
+    "name": "slides",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {
+    "courseID": {
+      "default": "",
+      "type": "integer"
+    },
+    "moduleID": {
+      "default": "",
+      "type": "integer"
+    },
+    "slideID": {
+      "default": "",
+      "type": "integer"
+    },
+    "title": {
+      "default": "",
+      "type": "string"
+    },
+    "content": {
+      "default": "",
+      "type": "string"
+    }
+  }
+}
