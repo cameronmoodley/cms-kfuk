@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/courseinformations",
+      "handler": "Courseinformation.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/courseinformations/count",
+      "handler": "Courseinformation.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/courseinformations/:id",
+      "handler": "Courseinformation.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/courseinformations",
+      "handler": "Courseinformation.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/courseinformations/:id",
+      "handler": "Courseinformation.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/courseinformations/:id",
+      "handler": "Courseinformation.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
